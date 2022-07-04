@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "@/components/HelloWorld.vue";
+import { defineAsyncComponent, ref } from "vue";
+import TheMenu from "./components/TheMenu.vue";
+import TheModal from "./components/TheModal.vue";
+const HelloWorld = defineAsyncComponent(
+  () => import("@/components/HelloWorld.vue")
+);
+const show = ref(true);
 </script>
 
 <template>
@@ -22,6 +28,23 @@ import HelloWorld from "@/components/HelloWorld.vue";
       </nav>
     </div>
   </header>
+  <button
+    @click="show = !show"
+    class="text-center text-2xl bg-green-500 text-black"
+  >
+    Menu
+  </button>
+  <transition
+    enter-active-class="duration-300 ease-out"
+    enter-from-class="transform opacity-0"
+    enter-to-class="opacity-100"
+    leave-active-class="duration-200 ease-in"
+    leave-from-class="opacity-100"
+    leave-to-class="transform opacity-0"
+  >
+    <TheMenu v-show="show"></TheMenu>
+  </transition>
+  <TheModal></TheModal>
 
   <RouterView />
 </template>
