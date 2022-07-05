@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from "vue-router";
-import { defineAsyncComponent, ref } from "vue";
+import { defineAsyncComponent, ref, provide } from "vue";
 import TheMenu from "./components/TheMenu.vue";
 import TheModal from "./components/TheModal.vue";
 const HelloWorld = defineAsyncComponent(
   () => import("@/components/HelloWorld.vue")
 );
 const show = ref(true);
+const username = provide("Username", "CricaDev");
 </script>
 
 <template>
@@ -30,7 +31,7 @@ const show = ref(true);
   </header>
   <button
     @click="show = !show"
-    class="text-center text-2xl bg-green-500 text-black"
+    class="text-2xl text-center text-black bg-green-500"
   >
     Menu
   </button>
@@ -44,7 +45,12 @@ const show = ref(true);
   >
     <TheMenu v-show="show"></TheMenu>
   </transition>
-  <TheModal></TheModal>
+  <TheModal
+    first-name="Gamin"
+    last-name="Velandia"
+    something="hello"
+    username="gamin"
+  ></TheModal>
 
   <RouterView />
 </template>
